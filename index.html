@@ -216,13 +216,20 @@
         <div class="newsletter-bonus"><strong>BONUS:</strong> You'll also receive our free <em>7-Day Healing Meal Guide</em> when the app launches!</div>
       </div>
       <div>
-        <form name="waitlist" method="POST" data-netlify="true" action="/thank-you">
-          <input class="newsletter-name" type="text" name="name" placeholder="Your name" required/>
-          <div class="newsletter-row">
-            <input class="newsletter-input" type="email" name="email" placeholder="Enter your email address" required/>
-            <button class="newsletter-btn" type="submit">Join</button>
+       <form name="waitlist" method="POST" data-netlify="true" onsubmit="handleSubmit(event)">
+          <input type="hidden" name="form-name" value="waitlist"/>
+          <div id="form-fields">
+            <input class="newsletter-name" type="text" name="name" placeholder="Your name" required/>
+            <div class="newsletter-row">
+              <input class="newsletter-input" type="email" name="email" placeholder="Enter your email address" required/>
+              <button class="newsletter-btn" type="submit">Join</button>
+            </div>
           </div>
-          <div class="newsletter-msg" id="newsletter-msg"></div>
+          <div id="form-success" style="display:none; background:#FAF0EB; border:0.5px solid #F0997B; border-radius:12px; padding:20px; text-align:center;">
+            <div style="font-size:32px; margin-bottom:8px;">🌿</div>
+            <div style="font-family:'DM Serif Display',serif; font-size:20px; color:#2C2C2A; margin-bottom:6px;">You're on the list!</div>
+            <div style="font-size:13px; color:#5F5E5A; line-height:1.6;">Thank you for joining Nutrí. We'll be in touch as soon as the app is ready.</div>
+          </div>
         </form>
       </div>
     </div>
