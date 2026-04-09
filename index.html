@@ -216,12 +216,14 @@
         <div class="newsletter-bonus"><strong>BONUS:</strong> You'll also receive our free <em>7-Day Healing Meal Guide</em> when the app launches!</div>
       </div>
       <div>
-        <input class="newsletter-name" type="text" placeholder="Your name" id="wName"/>
-        <div class="newsletter-row">
-          <input class="newsletter-input" type="email" placeholder="Enter your email address" id="wEmail"/>
-          <button class="newsletter-btn" onclick="joinList()">Join</button>
-        </div>
-        <div class="newsletter-msg" id="newsletter-msg"></div>
+        <form name="waitlist" method="POST" data-netlify="true">
+          <input class="newsletter-name" type="text" name="name" placeholder="Your name" required/>
+          <div class="newsletter-row">
+            <input class="newsletter-input" type="email" name="email" placeholder="Enter your email address" required/>
+            <button class="newsletter-btn" type="submit">Join</button>
+          </div>
+          <div class="newsletter-msg" id="newsletter-msg"></div>
+        </form>
       </div>
     </div>
   </div>
