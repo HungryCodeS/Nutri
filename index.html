@@ -271,24 +271,29 @@
   </div>
 
   <script>
-    // Set today's date in nav
     var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     var d = new Date();
     document.getElementById('navDate').textContent = days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
 
-    // Waitlist form
-    function joinList() {
-      var name = document.getElementById('wName').value.trim();
-      var email = document.getElementById('wEmail').value.trim();
-      var msg = document.getElementById('newsletter-msg');
-      if (!name || !email) { msg.textContent = 'Please enter your name and email.'; return; }
-      if (!email.includes('@')) { msg.textContent = 'Please enter a valid email address.'; return; }
-      msg.textContent = "You're on the list, " + name + "! We'll be in touch soon. 🎉";
-      document.getElementById('wName').value = '';
-      document.getElementById('wEmail').value = '';
+    function handleSubmit(event) {
+      event.preventDefault();
+      var form = event.target;
+      var data = new FormData(form);
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data).toString()
+      })
+      .then(function() {
+        document.getElementById('form-fields').style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+      })
+      .catch(function() {
+        document.getElementById('form-fields').style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+      });
     }
   </script>
-
 </body>
 </html>
