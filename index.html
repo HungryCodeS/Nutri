@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nutrí — Food that speaks to your cells</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fff; color: #2C2C2A; }
+
+    /* TOP BAR */
+    .top-bar { background: #D85A30; padding: 6px 0; text-align: center; font-size: 12px; color: #fff; font-weight: 500; letter-spacing: 0.04em; }
+
+    /* NAV */
+    .nav-wrap { border-bottom: 2px solid #E8E0D8; background: #fff; position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .nav-logo-wrap { display: flex; align-items: center; gap: 10px; }
+    .nav-logo-icon { width: 44px; height: 44px; border-radius: 50%; background: #FAF0EB; border: 2px solid #F0997B; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .nav-logo-text { display: flex; flex-direction: column; }
+    .nav-logo-main { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: #2C2C2A; letter-spacing: 0.02em; line-height: 1; }
+    .nav-logo-main span { color: #D85A30; }
+    .nav-logo-date { font-size: 11px; color: #888780; margin-top: 2px; }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-link { font-size: 14px; font-weight: 600; color: #2C2C2A; padding: 8px 14px; cursor: pointer; display: flex; align-items: center; gap: 4px; border-radius: 6px; transition: all 0.2s; white-space: nowrap; background: none; border: none; font-family: 'Plus Jakarta Sans', sans-serif; text-decoration: none; }
+    .nav-link:hover { color: #D85A30; background: #FFF3EF; }
+    .nav-search { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #E8E0D8; background: none; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: 8px; }
+
+    /* FEATURED */
+    .featured-wrap { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+    .featured-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 48px; align-items: center; border-bottom: 1px solid #E8E0D8; padding-bottom: 40px; margin-bottom: 40px; }
+    .featured-img { border-radius: 4px; overflow: hidden; background: #FAF0EB; height: 340px; display: flex; align-items: center; justify-content: center; }
+    .featured-img-inner { text-align: center; padding: 32px; }
+    .featured-img-tag { font-size: 11px; font-weight: 600; color: #993C1D; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+    .featured-img-headline { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 900; color: #2C2C2A; line-height: 1.1; margin-bottom: 8px; }
+    .featured-img-sub { font-family: 'DM Serif Display', serif; font-size: 16px; color: #5F5E5A; font-style: italic; }
+    .featured-content-tag { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #D85A30; margin-bottom: 16px; line-height: 1.3; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+    .featured-content-text { font-size: 15px; color: #444441; line-height: 1.9; margin-bottom: 28px; }
+    .learn-more-btn { background: #D85A30; color: #fff; border: none; padding: 14px 28px; font-size: 14px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; letter-spacing: 0.06em; text-transform: uppercase; transition: background 0.2s; border-radius: 2px; }
+    .learn-more-btn:hover { background: #993C1D; }
+
+    /* SECTION HEADERS */
+    .section-label { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #444441; border-bottom: 2px solid #2C2C2A; padding-bottom: 8px; margin-bottom: 24px; display: inline-block; }
+
+    /* TOOLS */
+    .tools-section { padding: 0 0 40px; border-bottom: 1px solid #E8E0D8; margin-bottom: 40px; }
+    .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid #E8E0D8; }
+    .tool-item { padding: 20px 24px; border-right: 1px solid #E8E0D8; border-bottom: 1px solid #E8E0D8; cursor: pointer; transition: background 0.2s; }
+    .tool-item:hover { background: #FFF8F5; }
+    .tool-item:nth-child(3n) { border-right: none; }
+    .tool-item:nth-child(n+4) { border-bottom: none; }
+    .tool-item-icon { font-size: 24px; margin-bottom: 10px; }
+    .tool-item-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: #2C2C2A; margin-bottom: 6px; }
+    .tool-item-desc { font-size: 12px; color: #888780; line-height: 1.6; margin-bottom: 10px; }
+    .tool-item-link { font-size: 12px; font-weight: 700; color: #D85A30; letter-spacing: 0.04em; text-transform: uppercase; }
+
+    /* ARTICLES */
+    .articles-section { padding: 0 0 40px; border-bottom: 1px solid #E8E0D8; margin-bottom: 40px; }
+    .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .article-item { cursor: pointer; }
+    .article-item:hover .article-item-title { color: #D85A30; }
+    .article-item-img { height: 180px; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 48px; margin-bottom: 14px; }
+    .article-item-img.coral { background: #FAF0EB; }
+    .article-item-img.green { background: #EAF3DE; }
+    .article-item-img.sage { background: #E1F5EE; }
+    .article-item-cat { font-size: 11px; font-weight: 700; color: #D85A30; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+    .article-item-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: #2C2C2A; line-height: 1.4; margin-bottom: 8px; transition: color 0.2s; }
+    .article-item-sub { font-size: 13px; color: #5F5E5A; line-height: 1.7; margin-bottom: 10px; }
+    .article-item-meta { font-size: 11px; color: #B4B2A9; }
+
+    /* NEWSLETTER */
+    .newsletter-wrap { background: #FDF6EC; border-top: 2px solid #E8C99A; border-bottom: 2px solid #E8C99A; padding: 40px 0; }
+    .newsletter-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .newsletter-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: #2C2C2A; margin-bottom: 8px; }
+    .newsletter-bonus { font-size: 14px; color: #444441; line-height: 1.7; }
+    .newsletter-bonus strong { color: #D85A30; }
+    .newsletter-bonus em { font-style: italic; font-family: 'DM Serif Display', serif; }
+    .newsletter-name { width: 100%; border: 1.5px solid #C4B89A; border-radius: 2px; padding: 12px 16px; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; outline: none; background: #fff; color: #2C2C2A; margin-bottom: 8px; }
+    .newsletter-row { display: flex; }
+    .newsletter-input { flex: 1; border: 1.5px solid #C4B89A; border-right: none; padding: 12px 16px; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; outline: none; background: #fff; border-radius: 2px 0 0 2px; color: #2C2C2A; }
+    .newsletter-input::placeholder { color: #B4B2A9; }
+    .newsletter-btn { background: #D85A30; color: #fff; border: none; padding: 12px 24px; font-size: 14px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 0 2px 2px 0; transition: background 0.2s; }
+    .newsletter-btn:hover { background: #993C1D; }
+    .newsletter-msg { font-size: 13px; color: #D85A30; margin-top: 8px; min-height: 18px; }
+
+    /* FOOTER */
+    .footer-wrap { background: #FDF6EC; border-top: 1px solid #E8C99A; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; padding: 40px 24px 24px; }
+    .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 32px; }
+    .footer-col-title { font-family: 'Playfair Display', serif; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #444441; margin-bottom: 14px; }
+    .footer-link { font-size: 13px; color: #5F5E5A; margin-bottom: 8px; cursor: pointer; display: block; transition: color 0.2s; text-decoration: none; }
+    .footer-link:hover { color: #D85A30; }
+    .footer-bottom { border-top: 1px solid #E8C99A; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom-text { font-size: 12px; color: #B4B2A9; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 900; color: #2C2C2A; }
+    .footer-logo span { color: #D85A30; }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">The Nutrí app is coming soon — join the waitlist below and get early access</div>
+
+  <div class="nav-wrap">
+    <div class="nav-inner">
+      <div class="nav-logo-wrap">
+        <div class="nav-logo-icon">🌿</div>
+        <div class="nav-logo-text">
+          <div class="nav-logo-main">NUTR&Iacute;<span>.</span></div>
+          <div class="nav-logo-date" id="navDate"></div>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a class="nav-link" href="#tools">Tools</a>
+        <a class="nav-link" href="#articles">Articles</a>
+        <a class="nav-link" href="#goals">Goals</a>
+        <a class="nav-link" href="#waitlist">About</a>
+        <div class="nav-search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5F5E5A" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="featured-wrap">
+
+    <div class="featured-grid">
+      <div class="featured-img">
+        <div class="featured-img-inner">
+          <div class="featured-img-tag">Nutrí — Know what your body needs</div>
+          <div class="featured-img-headline">FOOD THAT<br>SPEAKS TO<br>YOUR CELLS.</div>
+          <div class="featured-img-sub">The science of healing, through food.</div>
+        </div>
+      </div>
+      <div>
+        <div class="featured-content-tag">Your Body Map & Cellular Food Guide</div>
+        <div class="featured-content-text">Most apps tell you what to eat. Nutrí tells you <em>why</em>. Understand what's happening inside your body at a cellular level — and exactly which foods your cells need to heal, energise, and thrive.</div>
+        <button class="learn-more-btn" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join the Waitlist</button>
+      </div>
+    </div>
+
+    <div class="tools-section" id="tools">
+      <div class="section-label">Free Tools</div>
+      <div class="tools-grid">
+        <div class="tool-item">
+          <div class="tool-item-icon">🩸</div>
+          <div class="tool-item-name">Blood Sugar Converter</div>
+          <div class="tool-item-desc">Convert between mg/dL and mmol/L instantly.</div>
+          <div class="tool-item-link">Try it →</div>
+        </div>
+        <div class="tool-item">
+          <div class="tool-item-icon">🔥</div>
+          <div class="tool-item-name">Calorie Estimator</div>
+          <div class="tool-item-desc">Find your daily calorie needs based on your goal.</div>
+          <div class="tool-item-link">Try it →</div>
+        </div>
+        <div class="tool-item">
+          <div class="tool-item-icon">💧</div>
+          <div class="tool-item-name">Water Intake Calculator</div>
+          <div class="tool-item-desc">Know exactly how much water your body needs daily.</div>
+          <div class="tool-item-link">Try it →</div>
+        </div>
+        <div class="tool-item">
+          <div class="tool-item-icon">⚖️</div>
+          <div class="tool-item-name">BMI Calculator</div>
+          <div class="tool-item-desc">Calculate your BMI and understand what it means.</div>
+          <div class="tool-item-link">Try it →</div>
+        </div>
+        <div class="tool-item">
+          <div class="tool-item-icon">🥗</div>
+          <div class="tool-item-name">Anti-Inflammatory Checker</div>
+          <div class="tool-item-desc">Does this food fight or feed inflammation?</div>
+          <div class="tool-item-link">Try it →</div>
+        </div>
+        <div class="tool-item">
+          <div class="tool-item-icon">🌿</div>
+          <div class="tool-item-name">Ingredient Nutrition Lookup</div>
+          <div class="tool-item-desc">Discover what any ingredient does for your cells.</div>
+          <div class="tool-item-link">Try it →</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="articles-section" id="articles">
+      <div class="section-label">Latest Articles</div>
+      <div class="articles-grid">
+        <div class="article-item">
+          <div class="article-item-img coral">🩸</div>
+          <div class="article-item-cat">Insulin Resistance</div>
+          <div class="article-item-title">Why your breakfast might be causing your 3pm energy crash</div>
+          <div class="article-item-sub">What happens to your blood sugar in the first two hours after eating — and how to fix it.</div>
+          <div class="article-item-meta">5 min read · April 9, 2026</div>
+        </div>
+        <div class="article-item">
+          <div class="article-item-img green">🧠</div>
+          <div class="article-item-cat">Brain Health</div>
+          <div class="article-item-title">The gut-brain connection your doctor probably hasn't told you about</div>
+          <div class="article-item-sub">How what you eat directly affects how clearly you think and feel every day.</div>
+          <div class="article-item-meta">7 min read · April 7, 2026</div>
+        </div>
+        <div class="article-item">
+          <div class="article-item-img sage">🔥</div>
+          <div class="article-item-cat">Inflammation</div>
+          <div class="article-item-title">5 everyday foods silently inflaming your cells right now</div>
+          <div class="article-item-sub">Common foods that trigger chronic inflammation — and what to eat instead.</div>
+          <div class="article-item-meta">6 min read · April 5, 2026</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="newsletter-wrap" id="waitlist">
+    <div class="newsletter-inner">
+      <div>
+        <div class="newsletter-title">Get Nutrí Updates & Early Access</div>
+        <div class="newsletter-bonus"><strong>BONUS:</strong> You'll also receive our free <em>7-Day Healing Meal Guide</em> when the app launches!</div>
+      </div>
+      <div>
+        <input class="newsletter-name" type="text" placeholder="Your name" id="wName"/>
+        <div class="newsletter-row">
+          <input class="newsletter-input" type="email" placeholder="Enter your email address" id="wEmail"/>
+          <button class="newsletter-btn" onclick="joinList()">Join</button>
+        </div>
+        <div class="newsletter-msg" id="newsletter-msg"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-wrap">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-col-title">Explore</div>
+          <a class="footer-link" href="#tools">Tools</a>
+          <a class="footer-link" href="#articles">Articles</a>
+          <a class="footer-link" href="#goals">Health Goals</a>
+          <a class="footer-link" href="#waitlist">About Nutrí</a>
+        </div>
+        <div>
+          <div class="footer-col-title">Resources</div>
+          <a class="footer-link">About Us</a>
+          <a class="footer-link">Free Newsletter</a>
+          <a class="footer-link">Contact Us</a>
+          <a class="footer-link">Privacy Policy</a>
+          <a class="footer-link">Terms of Use</a>
+        </div>
+        <div>
+          <div class="footer-col-title">Health Goals</div>
+          <a class="footer-link">Insulin Resistance</a>
+          <a class="footer-link">Anti-Inflammatory</a>
+          <a class="footer-link">Brain Focus</a>
+          <a class="footer-link">Gut Health</a>
+          <a class="footer-link">Heart Health</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-logo">NUTR&Iacute;<span>.</span></div>
+        <div class="footer-bottom-text">© 2026 Nutrí. All rights reserved.</div>
+        <div class="footer-bottom-text">Accra, Ghana</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Set today's date in nav
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var d = new Date();
+    document.getElementById('navDate').textContent = days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+
+    // Waitlist form
+    function joinList() {
+      var name = document.getElementById('wName').value.trim();
+      var email = document.getElementById('wEmail').value.trim();
+      var msg = document.getElementById('newsletter-msg');
+      if (!name || !email) { msg.textContent = 'Please enter your name and email.'; return; }
+      if (!email.includes('@')) { msg.textContent = 'Please enter a valid email address.'; return; }
+      msg.textContent = "You're on the list, " + name + "! We'll be in touch soon. 🎉";
+      document.getElementById('wName').value = '';
+      document.getElementById('wEmail').value = '';
+    }
+  </script>
+
+</body>
+</html>
