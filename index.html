@@ -98,8 +98,8 @@
 </head>
 <body>
 
-  <div class="top-bar">The Nutrí app is coming soon — join the waitlist below and get early access</div>
-
+  <div class="top-bar">Join the Nutrí newsletter — get food science, healing tips and early app access straight to your inbox</div>
+  
   <div class="nav-wrap">
     <div class="nav-inner">
       <div class="nav-logo-wrap">
@@ -112,7 +112,7 @@
       <div class="nav-links">
         <a class="nav-link" href="#tools">Tools</a>
         <a class="nav-link" href="#articles">Articles</a>
-        <a class="nav-link" href="#goals">Goals</a>
+        <a class="nav-link" href="#goals">Explorer</a>
         <a class="nav-link" href="#waitlist">About</a>
         <div class="nav-search">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5F5E5A" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
@@ -134,7 +134,8 @@
       <div>
         <div class="featured-content-tag">Your Body Map & Cellular Food Guide</div>
         <div class="featured-content-text">Most apps tell you what to eat. Nutrí tells you <em>why</em>. Understand what's happening inside your body at a cellular level — and exactly which foods your cells need to heal, energise, and thrive.</div>
-        <button class="learn-more-btn" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join the Waitlist</button>
+       <button class="btn-primary" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Learn More</button>
+       <button class="btn-secondary" onclick="document.getElementById('tools').scrollIntoView({behavior:'smooth'})">Try Free Tools</button>
       </div>
     </div>
 
@@ -211,10 +212,8 @@
 
   <div class="newsletter-wrap" id="waitlist">
     <div class="newsletter-inner">
-      <div>
-        <div class="newsletter-title">Get Nutrí Updates & Early Access</div>
-        <div class="newsletter-bonus"><strong>BONUS:</strong> You'll also receive our free <em>7-Day Healing Meal Guide</em> when the app launches!</div>
-      </div>
+      <div class="newsletter-title">Join the Nutrí Newsletter</div>
+<div class="newsletter-bonus">Get weekly food science, cellular health tips and healing meal ideas straight to your inbox. <strong>BONUS:</strong> Subscribers get <em>first access</em> when the app launches!</div>
       <div>
        <form name="waitlist" method="POST" data-netlify="true" onsubmit="handleSubmit(event)">
           <input type="hidden" name="form-name" value="waitlist"/>
