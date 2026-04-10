@@ -9,22 +9,24 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fff; color: #2C2C2A; }
 
-    /* TOP BAR */
-    .top-bar { background: #D85A30; padding: 6px 0; text-align: center; font-size: 12px; color: #fff; font-weight: 500; letter-spacing: 0.04em; }
+    .top-bar { background: #D85A30; padding: 6px 0; text-align: center; font-size: 12px; color: #fff; font-weight: 500; letter-spacing: 0.04em; cursor: pointer; }
 
     /* NAV */
-    .nav-wrap { border-bottom: 2px solid #E8E0D8; background: #fff; position: sticky; top: 0; z-index: 100; position: relative; }
-    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
-    .nav-logo-wrap { display: flex; align-items: center; gap: 6px; flex-shrink: 0; margin-right: auto; }
-    .nav-logo-icon { width: 20px; height: 24px; display: flex; align-items: center; justify-content: center; }
+    .nav-wrap { border-bottom: 2px solid #E8E0D8; background: #fff; position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .nav-logo-wrap { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
     .nav-logo-text { display: flex; flex-direction: column; }
     .nav-logo-main { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; color: #2C2C2A; letter-spacing: 0.02em; line-height: 1; }
     .nav-logo-main span { color: #D85A30; }
     .nav-logo-date { font-size: 11px; color: #888780; margin-top: 2px; }
-    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-links { display: flex; align-items: center; gap: 4px; position: relative; }
     .nav-link { font-size: 14px; font-weight: 600; color: #2C2C2A; padding: 8px 14px; cursor: pointer; display: flex; align-items: center; gap: 4px; border-radius: 6px; transition: all 0.2s; white-space: nowrap; background: none; border: none; font-family: 'Plus Jakarta Sans', sans-serif; text-decoration: none; }
     .nav-link:hover { color: #D85A30; background: #FFF3EF; }
-    .nav-search { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #E8E0D8; background: none; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: 8px; }
+    .nav-search { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #E8E0D8; background: none; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: 8px; flex-shrink: 0; }
+    .search-bar { display: none; position: absolute; top: 56px; right: 0; background: #fff; border: 1.5px solid #E8E0D8; border-radius: 10px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); z-index: 200; width: 280px; }
+    .search-bar input { width: 100%; border: none; outline: none; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; color: #2C2C2A; background: transparent; }
+    .search-bar input::placeholder { color: #B4B2A9; }
+    .search-bar.open { display: block; }
 
     /* FEATURED */
     .featured-wrap { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
@@ -36,8 +38,8 @@
     .featured-img-sub { font-family: 'DM Serif Display', serif; font-size: 16px; color: #5F5E5A; font-style: italic; }
     .featured-content-tag { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #D85A30; margin-bottom: 16px; line-height: 1.3; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
     .featured-content-text { font-size: 15px; color: #444441; line-height: 1.9; margin-bottom: 28px; }
-    .learn-more-btn { background: #D85A30; color: #fff; border: none; padding: 14px 28px; font-size: 14px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; letter-spacing: 0.06em; text-transform: uppercase; transition: background 0.2s; border-radius: 2px; }
-    .learn-more-btn:hover { background: #993C1D; }
+    .btn-primary { background: #D85A30; color: #fff; border: none; padding: 14px 28px; font-size: 14px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; letter-spacing: 0.06em; text-transform: uppercase; transition: background 0.2s; border-radius: 2px; }
+    .btn-primary:hover { background: #993C1D; }
 
     /* SECTION HEADERS */
     .section-label { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #444441; border-bottom: 2px solid #2C2C2A; padding-bottom: 8px; margin-bottom: 24px; display: inline-block; }
@@ -81,7 +83,6 @@
     .newsletter-input::placeholder { color: #B4B2A9; }
     .newsletter-btn { background: #D85A30; color: #fff; border: none; padding: 12px 24px; font-size: 14px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 0 2px 2px 0; transition: background 0.2s; }
     .newsletter-btn:hover { background: #993C1D; }
-    .newsletter-msg { font-size: 13px; color: #D85A30; margin-top: 8px; min-height: 18px; }
 
     /* FOOTER */
     .footer-wrap { background: #FDF6EC; border-top: 1px solid #E8C99A; }
@@ -98,7 +99,8 @@
 </head>
 <body>
 
-<div class="top-bar" style="cursor:pointer;" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join the Nutrí newsletter</div>
+  <div class="top-bar" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join the Nutrí newsletter — get food science, healing tips and early app access straight to your inbox →</div>
+
   <div class="nav-wrap">
     <div class="nav-inner">
       <div class="nav-logo-wrap">
@@ -110,19 +112,20 @@
       <div class="nav-links">
         <a class="nav-link" href="#tools">Tools</a>
         <a class="nav-link" href="#articles">Articles</a>
-        <a class="nav-link" href="#goals">Explorer</a>
-        <a class="nav-link" href="#waitlist">My Store</a>
-        <a class="nav-link" href="#store">About</a>
-        <div class="nav-search" id="searchToggle" onclick="toggleSearch()" style="cursor:pointer;">
+        <a class="nav-link" href="#explorer">Explorer</a>
+        <a class="nav-link" href="#store">My Store</a>
+        <a class="nav-link" href="#waitlist">About</a>
+        <div class="nav-search" onclick="toggleSearch()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5F5E5A" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         </div>
-        <div id="searchBar" style="display:none; position:absolute; top:72px; right:0; left:0; background:#fff; border-bottom:2px solid #E8E0D8; padding:12px 24px; z-index:200;">
-          <input type="text" placeholder="Search articles, tools..." style="width:100%; max-width:600px; display:block; margin:0 auto; border:1.5px solid #E8E0D8; border-radius:8px; padding:10px 16px; font-size:14px; font-family:'Plus Jakarta Sans',sans-serif; outline:none;"/>
+        <div class="search-bar" id="searchBar">
+          <input type="text" placeholder="Search articles, tools..." autofocus/>
         </div>
       </div>
+    </div>
+  </div>
 
   <div class="featured-wrap">
-
     <div class="featured-grid">
       <div class="featured-img">
         <div class="featured-img-inner">
@@ -134,7 +137,7 @@
       <div>
         <div class="featured-content-tag">Your Body Map & Cellular Food Guide</div>
         <div class="featured-content-text">Most apps tell you what to eat. Nutrí tells you <em>why</em>. Understand what's happening inside your body at a cellular level — and exactly which foods your cells need to heal, energise, and thrive.</div>
-       <button class="btn-primary" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Learn More</button>
+        <button class="btn-primary" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Learn More</button>
       </div>
     </div>
 
@@ -206,15 +209,16 @@
         </div>
       </div>
     </div>
-
   </div>
 
   <div class="newsletter-wrap" id="waitlist">
     <div class="newsletter-inner">
-      <div class="newsletter-title">Join the Nutrí Newsletter</div>
-<div class="newsletter-bonus">Get weekly food science, cellular health tips and healing meal ideas straight to your inbox. <strong>BONUS:</strong> Subscribers get <em>first access</em> when the app launches!</div>
       <div>
-       <form name="waitlist" method="POST" data-netlify="true" onsubmit="handleSubmit(event)">
+        <div class="newsletter-title">Join the Nutrí Newsletter</div>
+        <div class="newsletter-bonus">Get weekly food science, cellular health tips and healing meal ideas straight to your inbox. <strong>BONUS:</strong> Subscribers get <em>first access</em> when the app launches!</div>
+      </div>
+      <div>
+        <form name="waitlist" method="POST" data-netlify="true" onsubmit="handleSubmit(event)">
           <input type="hidden" name="form-name" value="waitlist"/>
           <div id="form-fields">
             <input class="newsletter-name" type="text" name="name" placeholder="Your name" required/>
@@ -240,7 +244,7 @@
           <div class="footer-col-title">Explore</div>
           <a class="footer-link" href="#tools">Tools</a>
           <a class="footer-link" href="#articles">Articles</a>
-          <a class="footer-link" href="#goals">Health Goals</a>
+          <a class="footer-link" href="#explorer">Explorer</a>
           <a class="footer-link" href="#waitlist">About Nutrí</a>
         </div>
         <div>
@@ -276,8 +280,10 @@
 
     function toggleSearch() {
       var bar = document.getElementById('searchBar');
-      bar.style.display = bar.style.display === 'none' ? 'block' : 'none';
-      }
+      bar.classList.toggle('open');
+      if (bar.classList.contains('open')) bar.querySelector('input').focus();
+    }
+
     function handleSubmit(event) {
       event.preventDefault();
       var form = event.target;
