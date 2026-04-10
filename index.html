@@ -13,8 +13,8 @@
     .top-bar { background: #D85A30; padding: 6px 0; text-align: center; font-size: 12px; color: #fff; font-weight: 500; letter-spacing: 0.04em; }
 
     /* NAV */
-    .nav-wrap { border-bottom: 2px solid #E8E0D8; background: #fff; position: sticky; top: 0; z-index: 100; }
-    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: flex-start; gap: 40px; height: 72px; }
+    .nav-wrap { border-bottom: 2px solid #E8E0D8; background: #fff; position: sticky; top: 0; z-index: 100; position: relative; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
     .nav-logo-wrap { display: flex; align-items: center; gap: 6px; flex-shrink: 0; margin-right: auto; }
     .nav-logo-icon { width: 20px; height: 24px; display: flex; align-items: center; justify-content: center; }
     .nav-logo-text { display: flex; flex-direction: column; }
@@ -102,7 +102,6 @@
   <div class="nav-wrap">
     <div class="nav-inner">
       <div class="nav-logo-wrap">
-       <div class="nav-logo-icon"><svg width="18" height="22" viewBox="0 0 32 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 2 C16 2 2 14 2 24 C2 31.5 8.3 36 16 36 C23.7 36 30 31.5 30 24 C30 14 16 2 16 2Z" fill="none" stroke="#2C2C2A" stroke-width="2"/></svg></div>
         <div class="nav-logo-text">
           <div class="nav-logo-main">NUTR&Iacute;<span>.</span></div>
           <div class="nav-logo-date" id="navDate"></div>
@@ -112,13 +111,15 @@
         <a class="nav-link" href="#tools">Tools</a>
         <a class="nav-link" href="#articles">Articles</a>
         <a class="nav-link" href="#goals">Explorer</a>
-        <a class="nav-link" href="#waitlist">About</a>
-        <div class="nav-search">
+        <a class="nav-link" href="#waitlist">My Store</a>
+        <a class="nav-link" href="#store">About</a>
+        <div class="nav-search" id="searchToggle" onclick="toggleSearch()" style="cursor:pointer;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5F5E5A" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         </div>
+        <div id="searchBar" style="display:none; position:absolute; top:72px; right:0; left:0; background:#fff; border-bottom:2px solid #E8E0D8; padding:12px 24px; z-index:200;">
+          <input type="text" placeholder="Search articles, tools..." style="width:100%; max-width:600px; display:block; margin:0 auto; border:1.5px solid #E8E0D8; border-radius:8px; padding:10px 16px; font-size:14px; font-family:'Plus Jakarta Sans',sans-serif; outline:none;"/>
+        </div>
       </div>
-    </div>
-  </div>
 
   <div class="featured-wrap">
 
@@ -273,6 +274,10 @@
     var d = new Date();
     document.getElementById('navDate').textContent = days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
 
+    function toggleSearch() {
+      var bar = document.getElementById('searchBar');
+      bar.style.display = bar.style.display === 'none' ? 'block' : 'none';
+      }
     function handleSubmit(event) {
       event.preventDefault();
       var form = event.target;
