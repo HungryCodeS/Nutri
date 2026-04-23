@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anti-Inflammatory Food Checker — Nutrí</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fff; color: #2C2C2A; }
+    .top-bar { background: #D85A30; padding: 6px 0; text-align: center; font-size: 12px; color: #fff; font-weight: 500; letter-spacing: 0.04em; cursor: pointer; }
+    .nav-wrap { border-bottom: 2px solid #E8E0D8; background: #fff; position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .nav-logo-wrap { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .nav-logo-main { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; color: #2C2C2A; letter-spacing: 0.02em; line-height: 1; text-decoration: none; }
+    .nav-logo-main span { color: #D85A30; }
+    .nav-logo-date { font-size: 11px; color: #888780; margin-top: 2px; }
+    .nav-links { display: flex; align-items: center; gap: 4px; position: relative; }
+    .nav-link { font-size: 14px; font-weight: 600; color: #2C2C2A; padding: 8px 14px; cursor: pointer; border-radius: 6px; transition: all 0.2s; white-space: nowrap; background: none; border: none; font-family: 'Plus Jakarta Sans', sans-serif; text-decoration: none; display: inline-block; }
+    .nav-link:hover { color: #D85A30; background: #FFF3EF; }
+    .nav-link.active { color: #D85A30; }
+    .nav-search { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #E8E0D8; background: none; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: 8px; flex-shrink: 0; }
+    .search-bar { display: none; position: absolute; top: 56px; right: 0; background: #fff; border: 1.5px solid #E8E0D8; border-radius: 10px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); z-index: 200; width: 280px; }
+    .search-bar input { width: 100%; border: none; outline: none; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; color: #2C2C2A; background: transparent; }
+    .search-bar.open { display: block; }
+    .page-hero { background: #FAF0EB; border-bottom: 1px solid #E8E0D8; padding: 48px 24px; }
+    .page-hero-inner { max-width: 1100px; margin: 0 auto; }
+    .page-hero-tag { font-size: 11px; font-weight: 600; color: #993C1D; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+    .page-hero-title { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; color: #2C2C2A; line-height: 1.15; margin-bottom: 12px; }
+    .page-hero-title em { color: #D85A30; font-style: italic; }
+    .page-hero-sub { font-size: 15px; color: #5F5E5A; line-height: 1.8; max-width: 600px; }
+    .tool-wrap { max-width: 700px; margin: 48px auto; padding: 0 24px; }
+    .tool-card { background: #fff; border: 1px solid #E8E0D8; border-radius: 4px; padding: 32px; margin-bottom: 24px; }
+    .tool-label { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #444441; margin-bottom: 8px; display: block; }
+    .tool-input { width: 100%; border: 1.5px solid #E8E0D8; border-radius: 4px; padding: 12px 16px; font-size: 15px; font-family: 'Plus Jakarta Sans', sans-serif; color: #2C2C2A; outline: none; margin-bottom: 16px; transition: border-color 0.2s; }
+    .tool-input:focus { border-color: #D85A30; }
+    .tool-select { width: 100%; border: 1.5px solid #E8E0D8; border-radius: 4px; padding: 12px 16px; font-size: 15px; font-family: 'Plus Jakarta Sans', sans-serif; color: #2C2C2A; outline: none; margin-bottom: 16px; background: #fff; cursor: pointer; }
+    .tool-btn { background: #D85A30; color: #fff; border: none; border-radius: 4px; padding: 14px 32px; font-size: 14px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; letter-spacing: 0.04em; text-transform: uppercase; transition: background 0.2s; width: 100%; }
+    .tool-btn:hover { background: #993C1D; }
+    .result-box { background: #FAF0EB; border: 1px solid #F0997B; border-radius: 4px; padding: 24px; margin-top: 24px; display: none; }
+    .result-number { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; color: #D85A30; margin-bottom: 8px; }
+    .result-label { font-size: 14px; color: #5F5E5A; line-height: 1.7; }
+    .result-tip { background: #2C2C2A; border-radius: 4px; padding: 16px 20px; margin-top: 16px; font-size: 13px; color: #D3D1C7; line-height: 1.7; }
+    .result-tip strong { color: #F0997B; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #888780; text-decoration: none; margin-bottom: 24px; transition: color 0.2s; }
+    .back-link:hover { color: #D85A30; }
+    .section-label { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #444441; border-bottom: 2px solid #2C2C2A; padding-bottom: 8px; margin-bottom: 24px; display: inline-block; }
+    .footer-wrap { background: #FDF6EC; border-top: 2px solid #E8C99A; margin-top: 64px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: #2C2C2A; }
+    .footer-logo span { color: #D85A30; }
+    .footer-bottom-text { font-size: 12px; color: #B4B2A9; }
+
+
+    .food-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 16px; }
+    .food-btn { background: #fff; border: 1.5px solid #E8E0D8; border-radius: 4px; padding: 10px 14px; font-size: 13px; font-weight: 600; color: #2C2C2A; cursor: pointer; text-align: left; transition: all 0.2s; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .food-btn:hover { border-color: #D85A30; background: #FFF8F5; }
+
+  </style>
+</head>
+<body>
+
+  <div class="top-bar" onclick="window.location.href='index.html#waitlist'">Join the Nutrí newsletter — get food science, healing tips and early app access straight to your inbox →</div>
+  <div class="nav-wrap">
+    <div class="nav-inner">
+      <div class="nav-logo-wrap">
+        <a href="index.html" class="nav-logo-main">NUTR&Iacute;<span>.</span></a>
+        <div class="nav-logo-text"><div class="nav-logo-date" id="navDate"></div></div>
+      </div>
+      <div class="nav-links">
+        <a class="nav-link active" href="tools.html">Tools</a>
+        <a class="nav-link" href="products.html">Products</a>
+        <a class="nav-link" href="articles.html">Articles</a>
+        <div class="nav-search" onclick="toggleSearch()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5F5E5A" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <div class="search-bar" id="searchBar"><input type="text" placeholder="Search..."/></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-tag">Inflammation & Healing</div>
+      <h1 class="page-hero-title">Anti-Inflammatory Food <em>Checker</em></h1>
+      <p class="page-hero-sub">Find out whether a food fights or feeds inflammation in your body. Knowledge is your first medicine.</p>
+    </div>
+  </div>
+  <div class="tool-wrap">
+    <a href="tools.html" class="back-link">← Back to all tools</a>
+    <div class="tool-card">
+      <label class="tool-label">Type a food or select below</label>
+      <input class="tool-input" type="text" id="foodInput" placeholder="e.g. turmeric, white bread, salmon..."/>
+      <div class="food-grid">
+        <button class="food-btn" onclick="checkFood('Turmeric')">🌿 Turmeric</button>
+        <button class="food-btn" onclick="checkFood('White bread')">🍞 White bread</button>
+        <button class="food-btn" onclick="checkFood('Salmon')">🐟 Salmon</button>
+        <button class="food-btn" onclick="checkFood('Sugar')">🍬 Sugar</button>
+        <button class="food-btn" onclick="checkFood('Blueberries')">🫐 Blueberries</button>
+        <button class="food-btn" onclick="checkFood('Processed meat')">🥩 Processed meat</button>
+        <button class="food-btn" onclick="checkFood('Olive oil')">🫒 Olive oil</button>
+        <button class="food-btn" onclick="checkFood('Alcohol')">🍺 Alcohol</button>
+      </div>
+      <button class="tool-btn" style="margin-top:16px;" onclick="checkFood(document.getElementById('foodInput').value)">Check this food</button>
+      <div class="result-box" id="foodResult">
+        <div class="result-number" id="foodScore"></div>
+        <div class="result-label" id="foodLabel"></div>
+        <div class="result-tip" id="foodTip"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-wrap">
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <div class="footer-logo">NUTR&Iacute;<span>.</span></div>
+        <div class="footer-bottom-text">© 2026 Nutrí. All rights reserved.</div>
+      </div>
+    </div>
+  </div>
+  <script>
+
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var d = new Date();
+    document.getElementById('navDate').textContent = days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+    function toggleSearch() {
+      var bar = document.getElementById('searchBar');
+      bar.classList.toggle('open');
+      if (bar.classList.contains('open')) bar.querySelector('input').focus();
+    }
+
+
+    var foodDB = {
+      'turmeric': {score:'Anti-inflammatory', emoji:'✅', tip:'Turmeric contains curcumin which is one of the most powerful natural anti-inflammatory compounds known. It directly inhibits inflammatory pathways at a cellular level. Best absorbed with black pepper and healthy fats.'},
+      'salmon': {score:'Anti-inflammatory', emoji:'✅', tip:'Salmon is rich in omega-3 fatty acids (EPA and DHA) which actively reduce inflammatory markers in the blood. Aim for 2–3 servings per week.'},
+      'blueberries': {score:'Anti-inflammatory', emoji:'✅', tip:'Blueberries are packed with anthocyanins and antioxidants that fight oxidative stress and reduce inflammation. They also support brain health.'},
+      'olive oil': {score:'Anti-inflammatory', emoji:'✅', tip:'Extra virgin olive oil contains oleocanthal which has similar anti-inflammatory effects to ibuprofen. Use it as your primary cooking fat.'},
+      'white bread': {score:'Pro-inflammatory', emoji:'⚠️', tip:'White bread causes rapid blood sugar spikes which trigger an inflammatory response. It lacks fibre and nutrients. Switch to whole grain or sourdough.'},
+      'sugar': {score:'Pro-inflammatory', emoji:'⚠️', tip:'Excess sugar activates inflammatory pathways and promotes the production of inflammatory cytokines. It is one of the biggest drivers of chronic inflammation.'},
+      'processed meat': {score:'Pro-inflammatory', emoji:'⚠️', tip:'Processed meats contain nitrates, advanced glycation end products and saturated fats that promote inflammation. Limit to occasional consumption.'},
+      'alcohol': {score:'Pro-inflammatory', emoji:'⚠️', tip:'Alcohol disrupts gut bacteria, increases intestinal permeability and triggers systemic inflammation. Even moderate consumption increases inflammatory markers.'}
+    };
+    function checkFood(food) {
+      document.getElementById('foodInput').value = food;
+      var key = food.toLowerCase().trim();
+      var res = document.getElementById('foodResult');
+      var score = document.getElementById('foodScore');
+      var lbl = document.getElementById('foodLabel');
+      var tip = document.getElementById('foodTip');
+      var match = null;
+      Object.keys(foodDB).forEach(function(k) { if (key.includes(k) || k.includes(key)) match = foodDB[k]; });
+      if (match) {
+        score.textContent = match.emoji + ' ' + match.score;
+        score.style.fontSize = '24px';
+        lbl.textContent = food;
+        tip.innerHTML = '<strong>Nutrí says:</strong> ' + match.tip;
+        res.style.display = 'block';
+      } else {
+        score.textContent = '🔍 Not in our database yet';
+        score.style.fontSize = '18px';
+        lbl.textContent = 'Try a common food like turmeric, sugar, salmon or olive oil.';
+        tip.innerHTML = '<strong>General rule:</strong> Whole, unprocessed, plant-rich foods tend to be anti-inflammatory. Refined, processed and sugary foods tend to promote inflammation.';
+        res.style.display = 'block';
+      }
+    }
+
+  </script>
+</body>
+</html>
