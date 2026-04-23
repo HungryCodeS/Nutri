@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Products — Nutrí</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fff; color: #2C2C2A; }
+    .top-bar { background: #D85A30; padding: 6px 0; text-align: center; font-size: 12px; color: #fff; font-weight: 500; letter-spacing: 0.04em; cursor: pointer; }
+    .nav-wrap { border-bottom: 2px solid #E8E0D8; background: #fff; position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .nav-logo-wrap { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .nav-logo-main { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; color: #2C2C2A; letter-spacing: 0.02em; line-height: 1; text-decoration: none; }
+    .nav-logo-main span { color: #D85A30; }
+    .nav-logo-date { font-size: 11px; color: #888780; margin-top: 2px; }
+    .nav-links { display: flex; align-items: center; gap: 4px; position: relative; }
+    .nav-link { font-size: 14px; font-weight: 600; color: #2C2C2A; padding: 8px 14px; cursor: pointer; border-radius: 6px; transition: all 0.2s; white-space: nowrap; background: none; border: none; font-family: 'Plus Jakarta Sans', sans-serif; text-decoration: none; display: inline-block; }
+    .nav-link:hover { color: #D85A30; background: #FFF3EF; }
+    .nav-link.active { color: #D85A30; }
+    .nav-search { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #E8E0D8; background: none; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: 8px; flex-shrink: 0; }
+    .search-bar { display: none; position: absolute; top: 56px; right: 0; background: #fff; border: 1.5px solid #E8E0D8; border-radius: 10px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); z-index: 200; width: 280px; }
+    .search-bar input { width: 100%; border: none; outline: none; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; color: #2C2C2A; background: transparent; }
+    .search-bar.open { display: block; }
+    .page-hero { background: #FAF0EB; border-bottom: 1px solid #E8E0D8; padding: 48px 24px; }
+    .page-hero-inner { max-width: 1100px; margin: 0 auto; }
+    .page-hero-tag { font-size: 11px; font-weight: 600; color: #993C1D; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+    .page-hero-title { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; color: #2C2C2A; line-height: 1.15; margin-bottom: 12px; }
+    .page-hero-title em { color: #D85A30; font-style: italic; }
+    .page-hero-sub { font-size: 15px; color: #5F5E5A; line-height: 1.8; max-width: 600px; }
+    .products-wrap { max-width: 1100px; margin: 48px auto; padding: 0 24px; }
+    .section-label { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #444441; border-bottom: 2px solid #2C2C2A; padding-bottom: 8px; margin-bottom: 24px; display: inline-block; }
+    .products-section { margin-bottom: 56px; }
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .product-card { border: 1px solid #E8E0D8; border-radius: 4px; overflow: hidden; cursor: pointer; transition: all 0.2s; }
+    .product-card:hover { border-color: #D85A30; transform: translateY(-2px); }
+    .product-img { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 56px; }
+    .product-img.coral { background: #FAF0EB; }
+    .product-img.green { background: #EAF3DE; }
+    .product-img.sage { background: #E1F5EE; }
+    .product-img.amber { background: #FAEEDA; }
+    .product-body { padding: 20px; }
+    .product-tag { font-size: 10px; font-weight: 700; color: #993C1D; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; display: block; }
+    .product-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #2C2C2A; margin-bottom: 8px; line-height: 1.3; }
+    .product-desc { font-size: 13px; color: #888780; line-height: 1.6; margin-bottom: 14px; }
+    .product-price { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #D85A30; margin-bottom: 12px; }
+    .product-btn { width: 100%; background: #2C2C2A; color: #fff; border: none; padding: 12px; font-size: 13px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; letter-spacing: 0.04em; text-transform: uppercase; transition: background 0.2s; border-radius: 2px; }
+    .product-btn:hover { background: #D85A30; }
+    .coming-soon-banner { background: #2C2C2A; border-radius: 4px; padding: 32px; text-align: center; margin-bottom: 48px; }
+    .coming-soon-title { font-family: 'DM Serif Display', serif; font-size: 28px; color: #F1EFE8; margin-bottom: 10px; }
+    .coming-soon-title em { color: #F0997B; font-style: italic; }
+    .coming-soon-sub { font-size: 14px; color: #888780; line-height: 1.7; max-width: 500px; margin: 0 auto; }
+    .footer-wrap { background: #FDF6EC; border-top: 2px solid #E8C99A; margin-top: 64px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: #2C2C2A; }
+    .footer-logo span { color: #D85A30; }
+    .footer-bottom-text { font-size: 12px; color: #B4B2A9; }
+  </style>
+</head>
+<body>
+  <div class="top-bar" onclick="window.location.href='index.html#waitlist'">Join the Nutrí newsletter — get food science, healing tips and early app access straight to your inbox →</div>
+  <div class="nav-wrap">
+    <div class="nav-inner">
+      <div class="nav-logo-wrap">
+        <a href="index.html" class="nav-logo-main">NUTR&Iacute;<span>.</span></a>
+        <div class="nav-logo-text"><div class="nav-logo-date" id="navDate"></div></div>
+      </div>
+      <div class="nav-links">
+        <a class="nav-link" href="tools.html">Tools</a>
+        <a class="nav-link active" href="products.html">Products</a>
+        <a class="nav-link" href="articles.html">Articles</a>
+        <div class="nav-search" onclick="toggleSearch()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5F5E5A" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <div class="search-bar" id="searchBar"><input type="text" placeholder="Search products..."/></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-tag">Nutrí Store</div>
+      <h1 class="page-hero-title">Tools to support your <em>healing</em></h1>
+      <p class="page-hero-sub">Carefully designed digital resources and print products to help you understand your body and stay consistent on your health journey.</p>
+    </div>
+  </div>
+  <div class="products-wrap">
+
+    <div class="coming-soon-banner">
+      <div class="coming-soon-title">More products <em>coming soon</em></div>
+      <div class="coming-soon-sub">We are building a full range of digital and print-on-demand products. Join the newsletter to be first to know when new products drop.</div>
+    </div>
+
+    <div class="products-section">
+      <div class="section-label">Digital Downloads</div>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-img coral">📋</div>
+          <div class="product-body">
+            <span class="product-tag">Digital — PDF</span>
+            <div class="product-name">7-Day Anti-Inflammatory Meal Plan</div>
+            <div class="product-desc">A complete week of meals designed to reduce inflammation, with recipes, shopping list and cellular benefit explained for each meal.</div>
+            <div class="product-price">$9</div>
+            <button class="product-btn">Coming soon</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-img green">🧬</div>
+          <div class="product-body">
+            <span class="product-tag">Digital — PDF</span>
+            <div class="product-name">Insulin Resistance Food Guide</div>
+            <div class="product-desc">A science-backed guide to eating for insulin resistance — which foods help, which hurt, and how to build a daily plate that works for your cells.</div>
+            <div class="product-price">$12</div>
+            <button class="product-btn">Coming soon</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-img sage">🧠</div>
+          <div class="product-body">
+            <span class="product-tag">Digital — PDF</span>
+            <div class="product-name">Brain Food Blueprint</div>
+            <div class="product-desc">Everything you need to eat for sharper focus, better memory and reduced brain fog. Includes a 30-day plan and ingredient deep dives.</div>
+            <div class="product-price">$15</div>
+            <button class="product-btn">Coming soon</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="products-section">
+      <div class="section-label">Print on Demand</div>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-img amber">📓</div>
+          <div class="product-body">
+            <span class="product-tag">Print — Journal</span>
+            <div class="product-name">The Nutrí Healing Journal</div>
+            <div class="product-desc">A beautifully designed 90-day journal to track your meals, energy, symptoms and progress on your healing journey.</div>
+            <div class="product-price">$18</div>
+            <button class="product-btn">Coming soon</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-img coral">🗓️</div>
+          <div class="product-body">
+            <span class="product-tag">Print — Poster</span>
+            <div class="product-name">Anti-Inflammatory Foods Wall Chart</div>
+            <div class="product-desc">A stunning A3 wall poster showing the top anti-inflammatory foods, their cellular benefits and how to use them. Perfect for your kitchen.</div>
+            <div class="product-price">$14</div>
+            <button class="product-btn">Coming soon</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-img green">☕</div>
+          <div class="product-body">
+            <span class="product-tag">Print — Mug</span>
+            <div class="product-name">Nutrí "Food is Medicine" Mug</div>
+            <div class="product-desc">Start every morning with intention. A ceramic mug printed with the Nutrí mantra and a healing affirmation on the inside.</div>
+            <div class="product-price">$20</div>
+            <button class="product-btn">Coming soon</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="footer-wrap">
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <div class="footer-logo">NUTR&Iacute;<span>.</span></div>
+        <div class="footer-bottom-text">© 2026 Nutrí. All rights reserved.</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var d = new Date();
+    document.getElementById('navDate').textContent = days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+    function toggleSearch() {
+      var bar = document.getElementById('searchBar');
+      bar.classList.toggle('open');
+      if (bar.classList.contains('open')) bar.querySelector('input').focus();
+    }
+  </script>
+</body>
+</html>
