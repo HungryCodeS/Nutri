@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Macro Calculator — Nutrí</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fff; color: #2C2C2A; }
+    .top-bar { background: #D85A30; padding: 6px 0; text-align: center; font-size: 12px; color: #fff; font-weight: 500; letter-spacing: 0.04em; cursor: pointer; }
+    .nav-wrap { border-bottom: 2px solid #E8E0D8; background: #fff; position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .nav-logo-wrap { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .nav-logo-main { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; color: #2C2C2A; letter-spacing: 0.02em; line-height: 1; text-decoration: none; }
+    .nav-logo-main span { color: #D85A30; }
+    .nav-logo-date { font-size: 11px; color: #888780; margin-top: 2px; }
+    .nav-links { display: flex; align-items: center; gap: 4px; position: relative; }
+    .nav-link { font-size: 14px; font-weight: 600; color: #2C2C2A; padding: 8px 14px; cursor: pointer; border-radius: 6px; transition: all 0.2s; white-space: nowrap; background: none; border: none; font-family: 'Plus Jakarta Sans', sans-serif; text-decoration: none; display: inline-block; }
+    .nav-link:hover { color: #D85A30; background: #FFF3EF; }
+    .nav-link.active { color: #D85A30; }
+    .nav-search { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #E8E0D8; background: none; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: 8px; flex-shrink: 0; }
+    .search-bar { display: none; position: absolute; top: 56px; right: 0; background: #fff; border: 1.5px solid #E8E0D8; border-radius: 10px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); z-index: 200; width: 280px; }
+    .search-bar input { width: 100%; border: none; outline: none; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; color: #2C2C2A; background: transparent; }
+    .search-bar.open { display: block; }
+    .page-hero { background: #FAF0EB; border-bottom: 1px solid #E8E0D8; padding: 48px 24px; }
+    .page-hero-inner { max-width: 1100px; margin: 0 auto; }
+    .page-hero-tag { font-size: 11px; font-weight: 600; color: #993C1D; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+    .page-hero-title { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; color: #2C2C2A; line-height: 1.15; margin-bottom: 12px; }
+    .page-hero-title em { color: #D85A30; font-style: italic; }
+    .page-hero-sub { font-size: 15px; color: #5F5E5A; line-height: 1.8; max-width: 600px; }
+    .tool-wrap { max-width: 700px; margin: 48px auto; padding: 0 24px; }
+    .tool-card { background: #fff; border: 1px solid #E8E0D8; border-radius: 4px; padding: 32px; margin-bottom: 24px; }
+    .tool-label { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #444441; margin-bottom: 8px; display: block; }
+    .tool-input { width: 100%; border: 1.5px solid #E8E0D8; border-radius: 4px; padding: 12px 16px; font-size: 15px; font-family: 'Plus Jakarta Sans', sans-serif; color: #2C2C2A; outline: none; margin-bottom: 16px; transition: border-color 0.2s; }
+    .tool-input:focus { border-color: #D85A30; }
+    .tool-select { width: 100%; border: 1.5px solid #E8E0D8; border-radius: 4px; padding: 12px 16px; font-size: 15px; font-family: 'Plus Jakarta Sans', sans-serif; color: #2C2C2A; outline: none; margin-bottom: 16px; background: #fff; cursor: pointer; }
+    .tool-btn { background: #D85A30; color: #fff; border: none; border-radius: 4px; padding: 14px 32px; font-size: 14px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; letter-spacing: 0.04em; text-transform: uppercase; transition: background 0.2s; width: 100%; }
+    .tool-btn:hover { background: #993C1D; }
+    .result-box { background: #FAF0EB; border: 1px solid #F0997B; border-radius: 4px; padding: 24px; margin-top: 24px; display: none; }
+    .result-number { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; color: #D85A30; margin-bottom: 8px; }
+    .result-label { font-size: 14px; color: #5F5E5A; line-height: 1.7; }
+    .result-tip { background: #2C2C2A; border-radius: 4px; padding: 16px 20px; margin-top: 16px; font-size: 13px; color: #D3D1C7; line-height: 1.7; }
+    .result-tip strong { color: #F0997B; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #888780; text-decoration: none; margin-bottom: 24px; transition: color 0.2s; }
+    .back-link:hover { color: #D85A30; }
+    .section-label { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #444441; border-bottom: 2px solid #2C2C2A; padding-bottom: 8px; margin-bottom: 24px; display: inline-block; }
+    .footer-wrap { background: #FDF6EC; border-top: 2px solid #E8C99A; margin-top: 64px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: #2C2C2A; }
+    .footer-logo span { color: #D85A30; }
+    .footer-bottom-text { font-size: 12px; color: #B4B2A9; }
+
+
+  </style>
+</head>
+<body>
+
+  <div class="top-bar" onclick="window.location.href='index.html#waitlist'">Join the Nutrí newsletter — get food science, healing tips and early app access straight to your inbox →</div>
+  <div class="nav-wrap">
+    <div class="nav-inner">
+      <div class="nav-logo-wrap">
+        <a href="index.html" class="nav-logo-main">NUTR&Iacute;<span>.</span></a>
+        <div class="nav-logo-text"><div class="nav-logo-date" id="navDate"></div></div>
+      </div>
+      <div class="nav-links">
+        <a class="nav-link active" href="tools.html">Tools</a>
+        <a class="nav-link" href="products.html">Products</a>
+        <a class="nav-link" href="articles.html">Articles</a>
+        <div class="nav-search" onclick="toggleSearch()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5F5E5A" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <div class="search-bar" id="searchBar"><input type="text" placeholder="Search..."/></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-tag">Blood & Metabolism</div>
+      <h1 class="page-hero-title">Macro <em>Calculator</em></h1>
+      <p class="page-hero-sub">Find your ideal daily protein, carbohydrate and fat intake based on your body and health goal.</p>
+    </div>
+  </div>
+  <div class="tool-wrap">
+    <a href="tools.html" class="back-link">← Back to all tools</a>
+    <div class="tool-card">
+      <label class="tool-label">Daily calorie target (kcal)</label>
+      <input class="tool-input" type="number" id="macCal" placeholder="e.g. 1800 (use calorie calculator first)"/>
+      <label class="tool-label">Your goal</label>
+      <select class="tool-select" id="macGoal">
+        <option value="balanced">Balanced health</option>
+        <option value="lose">Weight loss</option>
+        <option value="muscle">Build muscle</option>
+        <option value="lowcarb">Low carb / insulin resistance</option>
+      </select>
+      <button class="tool-btn" onclick="calcMacro()">Calculate</button>
+      <div class="result-box" id="macResult">
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:16px;" id="macGridResult"></div>
+        <div class="result-tip" id="macTip"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-wrap">
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <div class="footer-logo">NUTR&Iacute;<span>.</span></div>
+        <div class="footer-bottom-text">© 2026 Nutrí. All rights reserved.</div>
+      </div>
+    </div>
+  </div>
+  <script>
+
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var d = new Date();
+    document.getElementById('navDate').textContent = days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+    function toggleSearch() {
+      var bar = document.getElementById('searchBar');
+      bar.classList.toggle('open');
+      if (bar.classList.contains('open')) bar.querySelector('input').focus();
+    }
+
+
+    function calcMacro() {
+      var cal = parseFloat(document.getElementById('macCal').value);
+      var goal = document.getElementById('macGoal').value;
+      if (isNaN(cal)||cal<=0) { alert('Please enter your daily calorie target.'); return; }
+      var p, c, f;
+      if (goal==='balanced') { p=0.25; c=0.45; f=0.30; }
+      else if (goal==='lose') { p=0.35; c=0.35; f=0.30; }
+      else if (goal==='muscle') { p=0.40; c=0.40; f=0.20; }
+      else { p=0.30; c=0.20; f=0.50; }
+      var pg=Math.round((cal*p)/4), cg=Math.round((cal*c)/4), fg=Math.round((cal*f)/9);
+      document.getElementById('macGridResult').innerHTML =
+        '<div style="background:#FAF0EB;border-radius:4px;padding:16px;text-align:center"><div style="font-family:Playfair Display,serif;font-size:28px;font-weight:900;color:#D85A30">'+pg+'g</div><div style="font-size:13px;color:#5F5E5A;margin-top:4px">Protein</div></div>' +
+        '<div style="background:#EAF3DE;border-radius:4px;padding:16px;text-align:center"><div style="font-family:Playfair Display,serif;font-size:28px;font-weight:900;color:#3B6D11">'+cg+'g</div><div style="font-size:13px;color:#5F5E5A;margin-top:4px">Carbs</div></div>' +
+        '<div style="background:#E1F5EE;border-radius:4px;padding:16px;text-align:center"><div style="font-family:Playfair Display,serif;font-size:28px;font-weight:900;color:#0F6E56">'+fg+'g</div><div style="font-size:13px;color:#5F5E5A;margin-top:4px">Fats</div></div>';
+      document.getElementById('macTip').innerHTML = '<strong>Nutrí tip:</strong> Get your protein from eggs, legumes, fish and chicken. Your carbs from oats, sweet potato and brown rice. Your fats from avocado, olive oil and nuts.';
+      document.getElementById('macResult').style.display = 'block';
+    }
+
+  </script>
+</body>
+</html>
