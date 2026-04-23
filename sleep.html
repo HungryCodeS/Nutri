@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sleep & Recovery Score — Nutrí</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fff; color: #2C2C2A; }
+    .top-bar { background: #D85A30; padding: 6px 0; text-align: center; font-size: 12px; color: #fff; font-weight: 500; letter-spacing: 0.04em; cursor: pointer; }
+    .nav-wrap { border-bottom: 2px solid #E8E0D8; background: #fff; position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .nav-logo-wrap { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .nav-logo-main { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; color: #2C2C2A; letter-spacing: 0.02em; line-height: 1; text-decoration: none; }
+    .nav-logo-main span { color: #D85A30; }
+    .nav-logo-date { font-size: 11px; color: #888780; margin-top: 2px; }
+    .nav-links { display: flex; align-items: center; gap: 4px; position: relative; }
+    .nav-link { font-size: 14px; font-weight: 600; color: #2C2C2A; padding: 8px 14px; cursor: pointer; border-radius: 6px; transition: all 0.2s; white-space: nowrap; background: none; border: none; font-family: 'Plus Jakarta Sans', sans-serif; text-decoration: none; display: inline-block; }
+    .nav-link:hover { color: #D85A30; background: #FFF3EF; }
+    .nav-link.active { color: #D85A30; }
+    .nav-search { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #E8E0D8; background: none; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: 8px; flex-shrink: 0; }
+    .search-bar { display: none; position: absolute; top: 56px; right: 0; background: #fff; border: 1.5px solid #E8E0D8; border-radius: 10px; padding: 8px 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); z-index: 200; width: 280px; }
+    .search-bar input { width: 100%; border: none; outline: none; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; color: #2C2C2A; background: transparent; }
+    .search-bar.open { display: block; }
+    .page-hero { background: #FAF0EB; border-bottom: 1px solid #E8E0D8; padding: 48px 24px; }
+    .page-hero-inner { max-width: 1100px; margin: 0 auto; }
+    .page-hero-tag { font-size: 11px; font-weight: 600; color: #993C1D; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+    .page-hero-title { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; color: #2C2C2A; line-height: 1.15; margin-bottom: 12px; }
+    .page-hero-title em { color: #D85A30; font-style: italic; }
+    .page-hero-sub { font-size: 15px; color: #5F5E5A; line-height: 1.8; max-width: 600px; }
+    .tool-wrap { max-width: 700px; margin: 48px auto; padding: 0 24px; }
+    .tool-card { background: #fff; border: 1px solid #E8E0D8; border-radius: 4px; padding: 32px; margin-bottom: 24px; }
+    .tool-label { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #444441; margin-bottom: 8px; display: block; }
+    .tool-input { width: 100%; border: 1.5px solid #E8E0D8; border-radius: 4px; padding: 12px 16px; font-size: 15px; font-family: 'Plus Jakarta Sans', sans-serif; color: #2C2C2A; outline: none; margin-bottom: 16px; transition: border-color 0.2s; }
+    .tool-input:focus { border-color: #D85A30; }
+    .tool-select { width: 100%; border: 1.5px solid #E8E0D8; border-radius: 4px; padding: 12px 16px; font-size: 15px; font-family: 'Plus Jakarta Sans', sans-serif; color: #2C2C2A; outline: none; margin-bottom: 16px; background: #fff; cursor: pointer; }
+    .tool-btn { background: #D85A30; color: #fff; border: none; border-radius: 4px; padding: 14px 32px; font-size: 14px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; letter-spacing: 0.04em; text-transform: uppercase; transition: background 0.2s; width: 100%; }
+    .tool-btn:hover { background: #993C1D; }
+    .result-box { background: #FAF0EB; border: 1px solid #F0997B; border-radius: 4px; padding: 24px; margin-top: 24px; display: none; }
+    .result-number { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; color: #D85A30; margin-bottom: 8px; }
+    .result-label { font-size: 14px; color: #5F5E5A; line-height: 1.7; }
+    .result-tip { background: #2C2C2A; border-radius: 4px; padding: 16px 20px; margin-top: 16px; font-size: 13px; color: #D3D1C7; line-height: 1.7; }
+    .result-tip strong { color: #F0997B; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #888780; text-decoration: none; margin-bottom: 24px; transition: color 0.2s; }
+    .back-link:hover { color: #D85A30; }
+    .section-label { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #444441; border-bottom: 2px solid #2C2C2A; padding-bottom: 8px; margin-bottom: 24px; display: inline-block; }
+    .footer-wrap { background: #FDF6EC; border-top: 2px solid #E8C99A; margin-top: 64px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: #2C2C2A; }
+    .footer-logo span { color: #D85A30; }
+    .footer-bottom-text { font-size: 12px; color: #B4B2A9; }
+
+
+  </style>
+</head>
+<body>
+
+  <div class="top-bar" onclick="window.location.href='index.html#waitlist'">Join the Nutrí newsletter — get food science, healing tips and early app access straight to your inbox →</div>
+  <div class="nav-wrap">
+    <div class="nav-inner">
+      <div class="nav-logo-wrap">
+        <a href="index.html" class="nav-logo-main">NUTR&Iacute;<span>.</span></a>
+        <div class="nav-logo-text"><div class="nav-logo-date" id="navDate"></div></div>
+      </div>
+      <div class="nav-links">
+        <a class="nav-link active" href="tools.html">Tools</a>
+        <a class="nav-link" href="products.html">Products</a>
+        <a class="nav-link" href="articles.html">Articles</a>
+        <div class="nav-search" onclick="toggleSearch()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5F5E5A" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <div class="search-bar" id="searchBar"><input type="text" placeholder="Search..."/></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-tag">Mind & Recovery</div>
+      <h1 class="page-hero-title">Sleep & Recovery <em>Score</em></h1>
+      <p class="page-hero-sub">Assess your sleep habits and get a personalised recovery score with food and lifestyle recommendations.</p>
+    </div>
+  </div>
+  <div class="tool-wrap">
+    <a href="tools.html" class="back-link">← Back to all tools</a>
+    <div class="tool-card">
+      <label class="tool-label">How many hours do you sleep on average?</label>
+      <select class="tool-select" id="sleepHrs">
+        <option value="0">Less than 5 hours</option>
+        <option value="1">5–6 hours</option>
+        <option value="2">6–7 hours</option>
+        <option value="3">7–9 hours</option>
+      </select>
+      <label class="tool-label">How do you feel when you wake up?</label>
+      <select class="tool-select" id="sleepFeel">
+        <option value="0">Exhausted, hard to get up</option>
+        <option value="1">Tired but manageable</option>
+        <option value="2">Okay — takes a while to wake up</option>
+        <option value="3">Refreshed and ready</option>
+      </select>
+      <label class="tool-label">Do you wake up during the night?</label>
+      <select class="tool-select" id="sleepWake">
+        <option value="0">Multiple times every night</option>
+        <option value="1">Most nights</option>
+        <option value="2">Sometimes</option>
+        <option value="3">Rarely or never</option>
+      </select>
+      <label class="tool-label">What do you eat or drink before bed?</label>
+      <select class="tool-select" id="sleepFood">
+        <option value="0">Heavy meal, alcohol or caffeine</option>
+        <option value="1">Light snack or sugary food</option>
+        <option value="2">Nothing or water only</option>
+        <option value="3">Sleep-supporting foods (banana, chamomile, nuts)</option>
+      </select>
+      <button class="tool-btn" onclick="calcSleep()">Get my score</button>
+      <div class="result-box" id="sleepResult">
+        <div class="result-number" id="sleepNum"></div>
+        <div class="result-label" id="sleepLabel"></div>
+        <div class="result-tip" id="sleepTip"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-wrap">
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <div class="footer-logo">NUTR&Iacute;<span>.</span></div>
+        <div class="footer-bottom-text">© 2026 Nutrí. All rights reserved.</div>
+      </div>
+    </div>
+  </div>
+  <script>
+
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var d = new Date();
+    document.getElementById('navDate').textContent = days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+    function toggleSearch() {
+      var bar = document.getElementById('searchBar');
+      bar.classList.toggle('open');
+      if (bar.classList.contains('open')) bar.querySelector('input').focus();
+    }
+
+
+    function calcSleep() {
+      var score = parseInt(document.getElementById('sleepHrs').value) + parseInt(document.getElementById('sleepFeel').value) + parseInt(document.getElementById('sleepWake').value) + parseInt(document.getElementById('sleepFood').value);
+      var pct = Math.round((score/12)*100);
+      var cat, tip;
+      if (pct >= 80) { cat = 'Excellent recovery'; tip = 'Your sleep is supporting your healing well. Keep eating magnesium-rich foods like dark leafy greens and pumpkin seeds to maintain deep sleep quality.'; }
+      else if (pct >= 55) { cat = 'Good recovery'; tip = 'Your sleep is decent but there is room to improve. Try adding tart cherry juice, chamomile tea or a small handful of walnuts before bed — all support melatonin production naturally.'; }
+      else if (pct >= 30) { cat = 'Poor recovery'; tip = 'Your body is not getting enough restorative sleep. Avoid caffeine after 2pm, reduce screen time before bed and try magnesium glycinate. Poor sleep directly raises cortisol and inflammation.'; }
+      else { cat = 'Critical recovery deficit'; tip = 'Severe sleep deprivation drives chronic inflammation, insulin resistance and brain fog. Your healing journey depends on fixing sleep first. Speak to a doctor if sleep issues persist.'; }
+      document.getElementById('sleepNum').textContent = pct + '% recovery score';
+      document.getElementById('sleepLabel').textContent = cat;
+      document.getElementById('sleepTip').innerHTML = '<strong>Nutrí says:</strong> ' + tip;
+      document.getElementById('sleepResult').style.display = 'block';
+    }
+
+  </script>
+</body>
+</html>
